@@ -26,3 +26,5 @@ slides/node_modules
 slides/*.lock
 
 junit.xml
+
+cypress/**/*.mp4

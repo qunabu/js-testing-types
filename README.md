@@ -16,7 +16,9 @@ Mateusz Wojczal 2020
 - `yarn lint` uruchamia statyczną analizę kodu `eslint`
 - `yarn lint-fix` uruchamia statyczną analizę kodu `eslint` z opcją automatycznego naprawiania (napisuje pliki)
 - `yarn slides` uruchamia prezentację
-- `yarn cypress` uruchamia runner `cypress`
+- `yarn cypress` uruchamia runner `cypress` w nowym oknie
+- `yarn cypress-run` uruchamia runner `cypress` z opcją automatycznego uruchamiania testów
+- `yarn cypress-test` uruchamia runner `cypress` w tle i wyświetla raport. nagrywa sesję video
 
 ## Prezentacja
 

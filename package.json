@@ -23,7 +23,9 @@
     "lint-fix": "eslint . --fix",
     "eject": "react-scripts eject",
     "slides": "cd slides && yarn && yarn start",
-    "cypress": "cypress open"
+    "cypress": "cypress open",
+    "cypress-run": "cypress run",
+    "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run"
   },
   "eslintConfig": {
     "extends": [
@@ -49,7 +51,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "husky": "^4.3.0",
     "jest-junit": "^12.0.0",
-    "prettier": "^2.2.0"
+    "prettier": "^2.2.0",
+    "start-server-and-test": "^1.11.6"
   },
   "husky": {
     "hooks": {
