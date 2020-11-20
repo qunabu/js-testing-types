@@ -11,10 +11,11 @@ function App() {
           mod: "🤬",
         }
       : {
-          div: div(state[0] / state[1]).toString(),
-          mod: mod(state[0] / state[1]).toString(),
+          div: div(state[0], state[1]).toString(),
+          mod: mod(state[0], state[1]).toString(),
         };
   }, [state]);
+
   return (
     <div className="App">
       <header className="App-header">
