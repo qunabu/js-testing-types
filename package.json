@@ -15,7 +15,14 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "test-cc": "react-scripts test --coverage",
+    "test-ci": "react-scripts test --watchAll=false --reporters='jest-junit'  --forceExit",
+    "codeclimate": "codeclimate analyze",
+    "lint": "eslint",
+    "lint-fix": "eslint . --fix",
+    "eject": "react-scripts eject",
+    "slides": "cd slides && yarn && yarn start",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -34,5 +41,13 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^5.6.0",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "jest-junit": "^12.0.0",
+    "prettier": "^2.2.0"
   }
 }

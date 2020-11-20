@@ -1,0 +1,22 @@
+version: "2" # required to adjust maintainability checks
+plugins:
+  eslint:
+    enabled: true
+    channel: "eslint-5"
+    config:
+      extensions:
+        - .js
+
+ratings:
+  paths:
+    - src/**
+exclude_patterns:
+  - .expo
+  - .expo-shared
+  - node_modules
+  - public
+  - web-build
+  - build
+  - covarage
+  - slides
+  - cypress
