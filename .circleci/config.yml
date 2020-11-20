@@ -13,15 +13,13 @@ jobs:
       - run: ls
       - restore_cache:
           keys:
-            - 'v2-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}'
-            - "v2-deps-{{ .Branch }}-"
-            - v2-deps-
+            - yarn-packages-{{ checksum "yarn.lock" }}
       - run:
           name: Install Dependencies
           command: yarn install --immutable
       #- run: yarn cypress-ci
       - save_cache:
-          key: 'v2-deps-{{ .Branch }}-{{ checksum "yarn.lock" }}'
+          key: 'yarn-packages-{{ checksum "yarn.lock" }}'
           paths:
             - ~/.npm
             - ~/.yarn
@@ -44,11 +42,37 @@ jobs:
       - run: ls -la cypress/integration
       - run:
           name: Running cypress tests
-          command: $(yarn bin)/cypress run
+          #command: $(yarn bin)/cypress run
+          command: yarn cypress-ci
       - store_artifacts:
           path: cypress/videos
       - store_artifacts:
           path: cypress/screenshots
+
+  test-jest:
+    working_directory: ~/tmp
+    docker:
+      - image: "cypress/base:10"
+        environment:
+          TERM: xterm
+    steps:
+      - checkout
+      - restore_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      - save_cache:
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - /home/circleci/.npm
+      - run:
+          name: Run Tests
+          command: yarn test-ci  --ci --reporters=jest-junit
+      - store_artifacts:
+          path: ./test-results
+      - store_test_results:
+          path: ./test-results
 
 workflows:
   version: 2.1
