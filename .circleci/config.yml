@@ -1,6 +1,56 @@
-version: 2
+version: 2.1
+
 jobs:
   build:
+    working_directory: ~/tmp
+    docker:
+      - image: "cypress/base:10"
+        environment:
+          TERM: xterm
+    steps:
+      - checkout
+      - run: pwd
+      - run: ls
+      - restore_cache:
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+          name: Install Dependencies
+          command: yarn install --immutable
+      #- run: yarn cypress-ci
+      - save_cache:
+          key: 'yarn-packages-{{ checksum "yarn.lock" }}'
+          paths:
+            - ~/.npm
+            - ~/.yarn
+            - ~/.cache
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - .cache
+            - tmp
+  test:
+    working_directory: ~/tmp
+    docker:
+      - image: "cypress/base:10"
+        environment:
+          TERM: xterm
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: ls -la cypress
+      - run: ls -la cypress/integration
+      - run:
+          name: Running cypress tests
+          #command: $(yarn bin)/cypress run
+          command: yarn cypress-ci
+      - store_artifacts:
+          path: cypress/videos
+      - store_artifacts:
+          path: cypress/screenshots
+
+  test-jest:
+    working_directory: ~/tmp
     docker:
       - image: circleci/node:12
     steps:
@@ -21,3 +71,15 @@ jobs:
           path: ./test-results
       - store_test_results:
           path: ./test-results
+
+workflows:
+  version: 2.1
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - test-jest:
+          requires:
+            - build
