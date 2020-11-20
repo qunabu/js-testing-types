@@ -1,6 +1,18 @@
-version: 2
+version: 2.1
+
+orbs:
+  # use Cypress orb from CircleCI registry
+  cypress: cypress-io/cypress@1.16.1
+
 jobs:
-  build:
+  test-cypress:
+    executor: cypress/base-10
+    steps:
+      - attach_workspace:
+          at: ~/
+      - run: yarn cypress-ci
+
+  test-jest:
     docker:
       - image: circleci/node:12
     steps:
