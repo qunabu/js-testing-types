@@ -1,28 +1,12 @@
 version: 2.1
-
 orbs:
-  # use Cypress orb from CircleCI registry
-  cypress: cypress-io/cypress@1.16.1
-
-jobs:
-  test-jest:
-    docker:
-      - image: circleci/node:12
-    steps:
-      - checkout
-      - restore_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-      - run:
-          name: Install Dependencies with yarn
-          command: yarn install --immutable
-      - save_cache:
-          key: yarn-packages-{{ checksum "yarn.lock" }}
-          paths:
-            - /home/circleci/.npm
-      - run:
-          name: Run Tests
-          command: yarn test-ci  --ci --reporters=jest-junit
-      - store_artifacts:
-          path: ./test-results
-      - store_test_results:
-          path: ./test-results
+  cypress: cypress-io/cypress@1.0.0
+workflows:
+  build:
+    jobs:
+      - cypress/install:
+          build: "yarn"
+      - cypress/run:
+          record: false
+          parallel: false
+          parallelism: 10
