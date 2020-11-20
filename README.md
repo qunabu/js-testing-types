@@ -23,6 +23,8 @@ Mateusz Wojczal 2020
 
 `yarn slides` uruchamia prezentację.
 
+Prezentacja dostępna jest na [YouTube](https://www.youtube.com/watch?v=U5kcUhzskjY)
+
 ## Uruchomienie testów i reszta [komend](package.json)
 
 - `yarn test` uruchamia `jest` w trybie watch
