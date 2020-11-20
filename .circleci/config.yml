@@ -52,9 +52,7 @@ jobs:
   test-jest:
     working_directory: ~/tmp
     docker:
-      - image: "cypress/base:10"
-        environment:
-          TERM: xterm
+      - image: circleci/node:12
     steps:
       - checkout
       - restore_cache:
