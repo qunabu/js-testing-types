@@ -1,6 +1,6 @@
 # Testowanie.
 
-## Teoria i przykłady w JavaScript.
+## Teoria i przykłady w JavaScript
 
 > Pisanie testów to wykrywanie błędów przez programistów w trakcie pisania kodu źródłowego zamiast w najgorszym możliwym momencie - na produkcji przez klienta.
 
@@ -36,7 +36,7 @@ plus Testy **Regresji, Wizualne (snapshots)** i inne.
 
 ---
 
-## Testy jednostkowe.
+## Testy jednostkowe
 
 Testy jednostkowe są przeprowadzane na bardzo niskim poziomie aplikacji, bardzo zbliżonym do kodu źródłowego oprogramowania i polegają na testowaniu poszczególnych metod i funkcji klas, komponentów lub modułów wykorzystywanych w programie.
 Automatyzacja jest prosta i mogą one być bardzo szybko przeprowadzane przez serwer ciągłej integracji (jednocześnie).
@@ -421,7 +421,7 @@ TDD to proces projektowania, a nie proces testowania. TDD to solidna metoda inte
 
 ---
 
-### Konsekwencje pierwszego cyklu testowego.
+### Konsekwencje pierwszego cyklu testowego
 
 - Napisanie testu najpierw sprawia, że projekt kodu jest de facto&nbsp;testowalny
 - Pisanie tylko takiej ilości kodu potrzebnego do zaimplementowania wymaganej funkcjonalności sprawia, że wynikowa baza kodu jest minimalna, a tym samym łatwiejsza w utrzymaniu
@@ -438,7 +438,7 @@ TDD to proces projektowania, a nie proces testowania. TDD to solidna metoda inte
 
 ---
 
-## Strukturyzuj/grupuj testy.
+## Strukturyzuj/grupuj testy
 
 brzydko
 
@@ -704,7 +704,7 @@ describe("Saving the user profile", () => {
 
 ---
 
-## Znaj na wylot testowy framework.
+## Znaj na wylot testowy framework
 
 brzydko
 
