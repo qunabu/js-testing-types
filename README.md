@@ -1,4 +1,4 @@
-# Testowanie
+# Testowanie JavaScript
 
 Poniższe repozytorium służy do pokazania różnych strategii testowania automatycznego w języku JavaScript.
 
