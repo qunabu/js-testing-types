@@ -53,7 +53,7 @@ expect(add(2, 2)).toBe(4);
 
 ## Testy jednostkowe. Cd.
 
-Pokrycie kodu określa które części (linie kodu) programu zostały przetesowane przez testy jednostkowe.
+Pokrycie kodu określa które części (linie kodu) programu zostały przetestowane przez testy jednostkowe.
 
 ![cc](https://jestjs.io/img/content/feature-coverage.png)
 
@@ -142,7 +142,7 @@ $ eslint . --fix
 | ------------------------------------------- | -------------------------------------------------------------------- |
 | Wydajnościowe                               | sprawdzimy obciążenie systemu. Jak długo trwa odpowiedź serwera itp. |
 | Przeciążeniowe (część&nbsp;wydajnościowych) | przy ograniczeniu bądź braku zasób tj: procesor, pamięć, dysk, itp.  |
-| Obciążeniowe                                | przy zwiększonej ilości użytkownikow, rekordów, itp.                 |
+| Obciążeniowe                                | przy zwiększonej ilości użytkowników, rekordów, itp.                 |
 | Użyteczności (ux)                           | łatwość korzystania z oprogramowania.                                |
 | Pielęgnowalności                            | łatwość modyfikacji i dostosowań do nowych wymagań.                  |
 | Niezawodności                               | wykonanie wymaganych funkcji w określonych warunkach.                |
@@ -225,7 +225,7 @@ Porównywanie wyniku uruchomienia funkcji z jakimś oczekiwanym efektem, zapisan
 
 ## Środowiska uruchomieniowe
 
-aka **Test Runners** - środowiska w którym testy są uruchamiane i z którego `API` korzystają. Runnery zazwyczają posiadają podobne `API`, np `Jasimne`, `Jest` i `Mocha`.
+aka **Test Runners** - środowiska w którym testy są uruchamiane i z którego `API` korzystają. Runnery zazwyczaj posiadają podobne `API`, np `Jasimne`, `Jest` i `Mocha`.
 
 ```js
 // Jest
@@ -343,7 +343,7 @@ it("validates general PDF investment for user", async (done) => {
 
 ## Faktorie
 
-Służą do łatwego generowania skomplikowanych obiektow.
+Służą do łatwego generowania skomplikowanych obiektów.
 
 ```js
 const faker = require("faker");
@@ -361,8 +361,8 @@ describe("tests user phone number", () => {
     let user1;
     let user2;
     beforeAll(async (done) => {
-        const user1 = await User(userFactory());
-        const user1 = await User(userFactory({phoneNumber:'XXX'}));
+        user1 = await User(userFactory());
+        user2 = await User(userFactory({phoneNumber:'XXX'}));
     })
     it('validates well', () => expect(user1.hasValidPhoneNumber()).toBe(true))
     it('validates unwell', () => expect(user2.hasValidPhoneNumber()).toBe(false))
@@ -378,7 +378,7 @@ Testy jednostkowa są wyizolowanie i niezależne od siebie.
 
 - Każdą funkcjonalność należy określić w jednym i tylko jednym teście
 - Wykonanie / kolejność uruchomienia jednego testu nie może wpływać na inne
-- Kod ma być niezależny, gotowy do współbieznosci (parallel computing)
+- Kod ma być niezależny, gotowy do współbieżności (parallel computing)
 - Powtarzalny
 - Szybki
 - Zwarty i logiczny
@@ -409,7 +409,7 @@ Kluczem do dobrego testu jednostkowego jest napisanie testowalnego kodu. Zastoso
 
 ## TDD
 
-### Gdzie mozliw uzywaj TDD
+### Gdzie możliwe używaj TDD
 
 TDD to proces projektowania, a nie proces testowania. TDD to solidna metoda interaktywnego projektowania komponentów oprogramowania („jednostek”), tak aby ich zachowanie było określane za pomocą testów&nbsp;jednostkowych.
 
@@ -472,7 +472,7 @@ describe("A set of functionalities", () => {
 
 ## Nazewnictwo
 
-Nazwij swoje testy poprawnie - zwięzle, jednoznacznie, opisowo i poprawnie w języku angielskim. Przeczytaj dane wyjściowe programu uruchamiającego specyfikację i sprawdź, czy jest zrozumiałe! Pamiętaj, że ktoś inny też to przeczyta. Testy mają być żywą dokumentacją kodu.
+Nazwij swoje testy poprawnie - zwięzłe, jednoznacznie, opisowo i poprawnie w języku angielskim. Przeczytaj dane wyjściowe programu uruchamiającego specyfikację i sprawdź, czy jest zrozumiałe! Pamiętaj, że ktoś inny też to przeczyta. Testy mają być żywą dokumentacją kodu.
 
 brzydko
 
@@ -736,7 +736,7 @@ it("should call once a method with the proper arguments", () => {
 
 Jeśli metoda ma kilka wyników końcowych, każdą z nich należy przetestować oddzielnie. W każdym przypadku, gdy pojawi się błąd, pomoże ci zlokalizować źródło problemu w dokładnym miejscu.
 
-Pisanie „AND” lub „OR” podczas nazwania testu oznacza raczej refektoryzację testu.
+Pisanie „AND” lub „OR” podczas nazwania testu oznacza raczej refaktoryzację testu.
 
 brzydko
 
