@@ -82,3 +82,6 @@ workflows:
       - test:
           requires:
             - build
+      - test-jest:
+          requires:
+            - build
