@@ -26,7 +26,7 @@
     "cypress": "cypress open",
     "cypress-run": "cypress run",
     "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
-    "cypress-ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test start https-get://localhost:3000 cypress-run"
+    "cypress-ci": "cypress-test"
   },
   "eslintConfig": {
     "extends": [
