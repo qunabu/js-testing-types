@@ -4,8 +4,8 @@ import App from "./App";
 describe("The app", () => {
   test("renders the app", () => {
     render(<App />);
-    const linkElement = screen.getByText(/Dummy divider/i);
-    expect(linkElement).toBeInTheDocument();
+    const headerElement = screen.getByText(/Dummy divider/i);
+    expect(headerElement).toBeInTheDocument();
   });
 
   test("for dzielnik 3 i dzielna 2 result should be 1.5", () => {
@@ -23,8 +23,20 @@ describe("The app", () => {
     expect(app.getByTestId("modulo")).toHaveTextContent("1");
   });
 
-  test("for dzielnik 3 i dzielna 0 result should be fucked!!!", () => {
+  test("for dzielnik 3 i dzielna 0 result should be 🤬!!!", () => {
+    const app = render(<App />);
+    const inputdzielna = app.getByTestId("dzielna");
+    const inputdzielnik = app.getByTestId("dzielnik");
+
+    fireEvent.change(inputdzielna, { target: { value: "3.0" } });
+    expect(inputdzielna.value).toBe("3");
+
+    fireEvent.change(inputdzielnik, { target: { value: "0" } });
+    expect(inputdzielnik.value).toBe("0");
+
+    expect(app.getByTestId("result")).toHaveTextContent("🤬");
+    expect(app.getByTestId("modulo")).toHaveTextContent("🤬");
+
     // 🤬
-    expect(true).toBe(true); // AAAAAA !!!
   });
 });
