@@ -28,3 +28,5 @@ slides/*.lock
 junit.xml
 
 cypress/**/*.mp4
+
+output

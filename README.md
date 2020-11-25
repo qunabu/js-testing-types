@@ -40,3 +40,21 @@ Prezentacja napisana jest w markdown a wyświetlana przy pomocy [evealjs](https:
 - `yarn cypress` uruchamia runner `cypress` w nowym oknie
 - `yarn cypress-run` uruchamia runner `cypress` z opcją automatycznego uruchamiania testów
 - `yarn cypress-test` uruchamia runner `cypress` w tle i wyświetla raport. nagrywa sesję video
+
+## Todo
+
+- testy akceptacyjne codecept
+
+## Live Coding
+
+Testowanie w JS. Jest, React testing lib, Cypress
+Live coding bedzie dotyczył testowania prostej aplikacji napisanej w Reacie z create-react-app
+
+- testów jednostkowych - jest
+- testów strukturalnych i ich konfiguracji, z użyciem narzędzi code climate i eslint
+- testów integracyjnych/funkcjonalnych -jest i react-testing-library
+- testów end-to-end e2d - cypress.js
+- testów akceptacyjnych codecept
+- konfiguracji jest do Test Driven Development, raportów Code Covarage
+- konfiguracji Continous Integration na podstawie CircleCi, jest i cypress
+- ustawienia pre-hookow z uzyciem husky aby nie pchać niepoprawnego kodu
