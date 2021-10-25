@@ -1,0 +1,19 @@
+name: Acceptance Tests
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+jobs:
+  codeconcept-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Code Concept
+        run: npm run codeceptjs-test
