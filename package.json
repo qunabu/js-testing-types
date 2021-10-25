@@ -29,7 +29,8 @@
         "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
         "cypress-ci": "start-server-and-test start http://localhost:3000 cypress-run",
         "codeceptjs": "codeceptjs run",
-        "codeceptjs-test": "start-server-and-test start http://localhost:3000 codeceptjs"
+        "codeceptjs-test": "start-server-and-test start http://localhost:3000 codeceptjs",
+        "codeceptjs-ci": "HEADLESS=true start-server-and-test start http://localhost:3000 codeceptjs -c codecept.conf.ci.js"
     },
     "eslintConfig": {
         "extends": [
