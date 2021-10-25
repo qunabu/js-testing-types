@@ -11,11 +11,8 @@ exports.config = {
     Puppeteer: {
       url: "http://localhost:3000",
       show: true,
-      windowSize: "1200x900"
-    }
-  },
-  include: {
-    I: "./steps_file.js"
+      windowSize: "1200x900",
+    },
   },
   bootstrap: null,
   mocha: {},
@@ -23,13 +20,13 @@ exports.config = {
   plugins: {
     pauseOnFail: {},
     retryFailedStep: {
-      enabled: true
+      enabled: true,
     },
     tryTo: {
-      enabled: true
+      enabled: true,
     },
     screenshotOnFail: {
-      enabled: true
-    }
-  }
+      enabled: true,
+    },
+  },
 };
