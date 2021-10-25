@@ -11,10 +11,10 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Install dependencies
-        uses: tj-actions/puppeteer@v3.2
+        uses: ianwalter/puppeteer-container@acc52cd2334ad9eaf6e1974562d263e0a711b7e8
         with:
           args: yarn install
       - name: Run test
-        uses: tj-actions/puppeteer@v3.2
+        uses: ianwalter/puppeteer-container@acc52cd2334ad9eaf6e1974562d263e0a711b7e8
         with:
           args: npm run codeceptjs-test
