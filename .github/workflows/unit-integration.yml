@@ -1,0 +1,36 @@
+name: Unit & Integration Tests
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    types: [assigned, opened, synchronize, reopened]
+
+jobs:
+  jest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+
+      - name: Install Dependencies
+        run: npm i
+
+      - name: Code Concept
+        run: npm run test-cc --watchAll=false
+
+  jest-cc:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - name: Use Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: "14.x"
+      - run: npm i
+      - run: npm run test-cc
+
+      - name: Code Coverage upload
+        uses: codecov/codecov-action@v1
+        with:
+          files: ./coverage/clover.xml # optional

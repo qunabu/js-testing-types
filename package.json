@@ -1,67 +1,78 @@
 {
-  "name": "js-testing-types",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "@testing-library/jest-dom": "^5.11.4",
-    "@testing-library/react": "^11.1.0",
-    "@testing-library/user-event": "^12.1.10",
-    "react": "^17.0.1",
-    "react-dom": "^17.0.1",
-    "react-scripts": "4.0.0",
-    "web-vitals": "^0.2.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "test-cc": "react-scripts test --coverage",
-    "test-ci": "mkdir -p test-results && react-scripts test --watchAll=false --reporters='jest-junit'  --forceExit",
-    "test-hook": "react-scripts test --watchAll=false",
-    "codeclimate": "codeclimate analyze",
-    "lint": "eslint",
-    "lint-fix": "eslint . --fix",
-    "eject": "react-scripts eject",
-    "slides": "cd slides && yarn && yarn start",
-    "cypress": "cypress open",
-    "cypress-run": "cypress run",
-    "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
-    "cypress-ci": "start-server-and-test start http://localhost:3000 cypress-run"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "devDependencies": {
-    "cypress": "^5.6.0",
-    "eslint-config-prettier": "^6.15.0",
-    "eslint-plugin-prettier": "^3.1.4",
-    "husky": "^4.3.0",
-    "jest-junit": "^12.0.0",
-    "prettier": "^2.2.0",
-    "start-server-and-test": "^1.11.6"
-  },
-  "husky": {
-    "hooks": {
-      "pre-push": "yarn test-hook"
+    "name": "js-testing-types",
+    "version": "0.1.0",
+    "private": true,
+    "dependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
+        "react": "^17.0.1",
+        "react-dom": "^17.0.1",
+        "react-scripts": "4.0.0",
+        "web-vitals": "^0.2.4"
+    },
+    "scripts": {
+        "start": "react-scripts start",
+        "start-detach": "CI=true BROWSER=false pm2 start node_modules/react-scripts/scripts/start.js --name react-app && yarn wait-on http://localhost:3000/",
+        "stop-detach": "pm2 stop node_modules/react-scripts/scripts/start.js --name react-app",
+        "build": "react-scripts build",
+        "test": "react-scripts test",
+        "test-cc": "react-scripts test --coverage --watchAll=false",
+        "test-hook": "react-scripts test --watchAll=false",
+        "codeclimate": "codeclimate analyze",
+        "lint": "eslint",
+        "lint-fix": "eslint . --fix",
+        "eject": "react-scripts eject",
+        "slides": "cd slides && yarn && yarn start",
+        "cypress": "cypress open",
+        "cypress-run": "cypress run",
+        "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
+        "cypress-ci": "start-server-and-test start http://localhost:3000 cypress-run",
+        "codeceptjs": "codeceptjs run",
+        "codeceptjs-test": "start-server-and-test start http-get://localhost:3000 codeceptjs",
+        "codeceptjs-ci": "yarn start-detach && (yarn codeceptjs -c codecept.conf.ci.js) && yarn stop-detach"
+    },
+    "eslintConfig": {
+        "extends": [
+            "react-app",
+            "react-app/jest"
+        ]
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "devDependencies": {
+        "codeceptjs": "^3.0.2",
+        "cypress": "^5.6.0",
+        "eslint-config-prettier": "^6.15.0",
+        "eslint-plugin-prettier": "^3.1.4",
+        "husky": "^4.3.0",
+        "jest-junit": "^12.0.0",
+        "pm2": "^5.1.2",
+        "prettier": "^2.2.0",
+        "puppeteer": "^3.0.1",
+        "start-server-and-test": "^1.14"
+    },
+    "husky": {
+        "hooks": {
+            "pre-push": "yarn test-hook"
+        }
+    },
+    "jest": {
+        "coverageReporters": [
+            "json",
+            "lcov",
+            "text",
+            "clover"
+        ]
     }
-  },
-  "jest-junit": {
-    "outputDirectory": "./test-results",
-    "outputName": "junit.xml"
-  }
 }
