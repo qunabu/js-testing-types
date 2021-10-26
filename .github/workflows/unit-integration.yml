@@ -28,7 +28,7 @@ jobs:
         with:
           node-version: "14.x"
       - run: npm i
-      - run: npm run test-ci
+      - run: npm run test-cc
 
       - name: Code Coverage upload
         uses: codecov/codecov-action@v1

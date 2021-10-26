@@ -1,5 +1,11 @@
 # Testowanie JavaScript
 
+[![Acceptance Tests](https://github.com/qunabu/js-testing-types/actions/workflows/codeconcept.yml/badge.svg)](https://github.com/qunabu/js-testing-types/actions/workflows/codeconcept.yml)
+[![End-to-end tests](https://github.com/qunabu/js-testing-types/actions/workflows/e2e.yml/badge.svg)](https://github.com/qunabu/js-testing-types/actions/workflows/e2e.yml)
+[![Static Code Analysis](https://github.com/qunabu/js-testing-types/actions/workflows/static.yml/badge.svg)](https://github.com/qunabu/js-testing-types/actions/workflows/static.yml)
+[![Unit & Integration Tests](https://github.com/qunabu/js-testing-types/actions/workflows/unit-integration.yml/badge.svg)](https://github.com/qunabu/js-testing-types/actions/workflows/unit-integration.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/375171535f08cc683bfd/maintainability)](https://codeclimate.com/github/qunabu/js-testing-types/maintainability)
+
 Poniższe repozytorium służy do pokazania różnych strategii testowania automatycznego w języku JavaScript.
 
 Kod w tym repozytorium jest oparty o `React` i domyślne ustawienia `create-react-app`, oprócz tego zawiera:

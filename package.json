@@ -17,8 +17,7 @@
         "stop-detach": "pm2 stop node_modules/react-scripts/scripts/start.js --name react-app",
         "build": "react-scripts build",
         "test": "react-scripts test",
-        "test-cc": "react-scripts test --coverage",
-        "test-ci": "mkdir -p test-results && react-scripts test --watchAll=false --reporters='jest-junit'  --forceExit",
+        "test-cc": "react-scripts test --coverage --watchAll=false",
         "test-hook": "react-scripts test --watchAll=false",
         "codeclimate": "codeclimate analyze",
         "lint": "eslint",
@@ -68,8 +67,12 @@
             "pre-push": "yarn test-hook"
         }
     },
-    "jest-junit": {
-        "outputDirectory": "./test-results",
-        "outputName": "junit.xml"
+    "jest": {
+        "coverageReporters": [
+            "json",
+            "lcov",
+            "text",
+            "clover"
+        ]
     }
 }
