@@ -2,7 +2,6 @@
     "name": "js-testing-types",
     "version": "0.1.0",
     "private": true,
-    "homepage": "https://qunabu.github.io/js-testing-types",
     "dependencies": {
         "@testing-library/jest-dom": "^5.11.4",
         "@testing-library/react": "^11.1.0",
@@ -14,6 +13,8 @@
     },
     "scripts": {
         "start": "react-scripts start",
+        "start-detach": "yarn stop-detach && CI=true BROWSER=false pm2 start node_modules/react-scripts/scripts/start.js --name react-app && yarn wait-on http://localhost:3000/",
+        "stop-detach": "pm2 stop node_modules/react-scripts/scripts/start.js --name react-app",
         "build": "react-scripts build",
         "test": "react-scripts test",
         "test-cc": "react-scripts test --coverage",
@@ -29,8 +30,8 @@
         "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
         "cypress-ci": "start-server-and-test start http://localhost:3000 cypress-run",
         "codeceptjs": "codeceptjs run",
-        "codeceptjs-test": "start-server-and-test start http://localhost:3000 codeceptjs",
-        "codeceptjs-ci": "HEADLESS=true start-server-and-test start http://localhost:3000 codeceptjs -c codecept.conf.ci.js"
+        "codeceptjs-test": "start-server-and-test start http-get://localhost:3000 codeceptjs",
+        "codeceptjs-ci": "yarn start-detach && (yarn codeceptjs -c codecept.conf.ci.js) && yarn stop-detach",
     },
     "eslintConfig": {
         "extends": [
@@ -57,9 +58,10 @@
         "eslint-plugin-prettier": "^3.1.4",
         "husky": "^4.3.0",
         "jest-junit": "^12.0.0",
+        "pm2": "^5.1.2",
         "prettier": "^2.2.0",
         "puppeteer": "^3.0.1",
-        "start-server-and-test": "^1.11.6"
+        "start-server-and-test": "^1.14"
     },
     "husky": {
         "hooks": {

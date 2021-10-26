@@ -16,4 +16,4 @@ jobs:
         run: npm i
 
       - name: Code Concept
-        run: HEADLESS=true npm run codeceptjs-ci
+        run: CI=true HEADLESS=true npm run codeceptjs-ci
