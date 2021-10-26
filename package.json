@@ -13,7 +13,7 @@
     },
     "scripts": {
         "start": "react-scripts start",
-        "start-detach": "yarn stop-detach && CI=true BROWSER=false pm2 start node_modules/react-scripts/scripts/start.js --name react-app && yarn wait-on http://localhost:3000/",
+        "start-detach": "CI=true BROWSER=false pm2 start node_modules/react-scripts/scripts/start.js --name react-app && yarn wait-on http://localhost:3000/",
         "stop-detach": "pm2 stop node_modules/react-scripts/scripts/start.js --name react-app",
         "build": "react-scripts build",
         "test": "react-scripts test",
