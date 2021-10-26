@@ -30,3 +30,6 @@ junit.xml
 cypress/**/*.mp4
 
 output
+
+yarn.lock
+.vscode
