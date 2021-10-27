@@ -17,3 +17,14 @@ jobs:
 
       - name: Stryker run
         run: yarn stryker run
+        with: # Set the secret as an input
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        env: # Or as an environment variable
+          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+
+      - name: Mutation Annotation Report
+        uses: johanholmerin/mutation-report-action@0.2.0
+        if: ${{ always() }} # Upload even if tests don't pass testing threshold
+        with:
+          repo-token: "${{ secrets.GITHUB_TOKEN }}"
+          report-json: "./reports/mutation/mutation.json" # Optional, default
