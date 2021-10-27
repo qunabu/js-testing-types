@@ -33,3 +33,7 @@ output
 
 yarn.lock
 .vscode
+# stryker temp files
+.stryker-tmp
+
+reports

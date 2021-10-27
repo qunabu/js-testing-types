@@ -51,6 +51,10 @@
         ]
     },
     "devDependencies": {
+        "@stryker-mutator/core": "^5.4.1",
+        "@stryker-mutator/html-reporter": "^3.1.0",
+        "@stryker-mutator/javascript-mutator": "^4.0.0",
+        "@stryker-mutator/jest-runner": "^5.4.1",
         "codeceptjs": "^3.0.2",
         "cypress": "^5.6.0",
         "eslint-config-prettier": "^6.15.0",
