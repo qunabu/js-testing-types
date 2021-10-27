@@ -6,7 +6,7 @@ on:
     types: [assigned, opened, synchronize, reopened]
 
 jobs:
-  cypress-run:
+  codeceptjs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
