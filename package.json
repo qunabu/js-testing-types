@@ -31,7 +31,7 @@
         "codeceptjs": "codeceptjs run",
         "codeceptjs-test": "start-server-and-test start http-get://localhost:3000 codeceptjs",
         "codeceptjs-ci": "yarn start-detach && (yarn codeceptjs -c codecept.conf.ci.js) && yarn stop-detach",
-        "stryker": "yarn stryker run"
+        "stryker-ci": "yarn stryker run"
     },
     "eslintConfig": {
         "extends": [
