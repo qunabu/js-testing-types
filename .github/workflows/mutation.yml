@@ -15,5 +15,5 @@ jobs:
       - name: Install Dependencies
         run: yarn
 
-      - name: Code Concept
-        run: arn stryker run
+      - name: Stryker run
+        run: yarn stryker run
