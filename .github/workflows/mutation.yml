@@ -16,11 +16,9 @@ jobs:
         run: yarn
 
       - name: Stryker run
-        run: yarn stryker run
-        with: # Set the secret as an input
-          STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
         env: # Or as an environment variable
           STRYKER_DASHBOARD_API_KEY: ${{ secrets.STRYKER_DASHBOARD_API_KEY }}
+        run: yarn stryker run
 
       - name: Mutation Annotation Report
         uses: johanholmerin/mutation-report-action@0.2.0
