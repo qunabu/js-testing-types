@@ -63,6 +63,8 @@ deck.initialize({
 
   width: 1280,
   height: 720,
+
+  display: "flex",
 });
 
 //console.log(md);

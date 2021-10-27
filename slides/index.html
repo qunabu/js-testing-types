@@ -23,6 +23,35 @@
         .reveal pre code {
             max-height: none;
         }
+        
+        .reveal p>code {
+            color: #f92672;
+        }
+        
+        .reveal iframe {
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .reveal.center,
+        .reveal.center .slides,
+        .reveal.center .slides section {
+            flex-direction: column;
+        }
+        
+        footer {
+            position: fixed;
+            left: 10px;
+            bottom: 10px;
+            z-index: 1111;
+            font-size: 12px;
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+        
+        footer,
+        footer * {
+            color: #ddd;
+        }
     </style>
 </head>
 
@@ -33,6 +62,8 @@
             <section data-markdown="readme.md" data-charset="utf-8"></section>
         </div>
     </div>
+
+    <footer>Mateusz Wojczal. Testowanie automatyczne w JavaScript. <a href="https://github.com/qunabu/js-testing-types" target="_blank">https://github.com/qunabu/js-testing-types</a> </footer>
 
     <script src="slides.js" type="module"></script>
 </body>

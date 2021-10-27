@@ -26,13 +26,52 @@ Nie ma jasnego podziału typów testów. Często są mylone grupy i typy. Opróc
 | ------------------- | ------------------- | ---------------- |
 | wewn. struktur      | wydajnościowe       | integracyjne     |
 | jednostkowe         | obciążeniowe        | end-to-end       |
-| standardu kodowania | przeciążeniowe      | akceptacyjne     |
-| instalacji          | użyteczności        |                  |
-| kompilacji          | pielęgnowalności    |                  |
+| standardu kodowania | przeciążeniowe      | \* akceptacyjne  |
+| instalacji          | użyteczności        | \* mutacyjne     |
+| kompilacji          | pielęgnowalności    | \* behawioralne  |
 |                     | niezawodności       |                  |
 |                     | przenaszalności     |                  |
 
-plus Testy **Regresji, Wizualne (snapshots)** i inne.
+plus Testy **Regresji, Wizualne (snapshots)** i inne (np. **Chaos monkey**).
+
+---
+
+| **Testy niefunkcjonalne**                   |                                                                      |
+| ------------------------------------------- | -------------------------------------------------------------------- |
+| Wydajnościowe                               | sprawdzimy obciążenie systemu. Jak długo trwa odpowiedź serwera itp. |
+| Przeciążeniowe (część&nbsp;wydajnościowych) | przy ograniczeniu bądź braku zasób tj: procesor, pamięć, dysk, itp.  |
+| Obciążeniowe                                | przy zwiększonej ilości użytkowników, rekordów, itp.                 |
+| Użyteczności (ux)                           | łatwość korzystania z oprogramowania.                                |
+| Pielęgnowalności                            | łatwość modyfikacji i dostosowań do nowych wymagań.                  |
+| Niezawodności                               | wykonanie wymaganych funkcji w określonych warunkach.                |
+| Przenaszalności                             | łatwość przeniesienia z jednego środowiska na drugie.                |
+
+---
+
+# Typy testów. Skrzynki
+
+Powszechnie stosowanymi podziałami testów są techniki:
+
+- **Białej skrzynki** - tester zna budowę systemu i wie, jak odbywają się poszczególne procesy. Program napisany w JS będzie miał testy napisane w JS
+- **Czarnej Skrzynki** — tester nie ma pojęcia, jak skonstruowany został testowany system. Poprzez dostępny interface (Przeglądarka, Rest API, CLI) framework testuje dostępne na zewnątrz funkcjonalności.
+
+---
+
+# Typy testów. cd
+
+| **Białej skrzynki** | **Czarnej Skrzynki**                                      |
+| ------------------- | --------------------------------------------------------- |
+| wewn. struktur      | end-to-end                                                |
+| jednostkowe         | akceptacyjne                                              |
+| standardu kodowania | behawioralne                                              |
+| instalacji          | \* jednostkowe                                            |
+| kompilacji          | wydajnościowe, obciążeniowe, przeciążeniowe, użyteczności |
+| integracyjne        | pielęgnowalności, niezawodności, przenaszalności          |
+| mutacyjne           |                                                           |
+
+---
+
+# Testy białej skrzynki
 
 ---
 
@@ -51,15 +90,95 @@ expect(add(2, 2)).toBe(4);
 
 ---
 
-## Testy jednostkowe. Cd.
+## Testy jednostkowe (blackbox)
 
-Pokrycie kodu określa które części (linie kodu) programu zostały przetestowane przez testy jednostkowe.
+Testy jednostkowe mogą być użyte jako testy czarnej skrzynki. Np testowanie implementacji kontraktu, lub w pierwszych etapach TDD (o którym będzie za chwilę więcej).
+
+```ts
+// app
+type AddFn = (a: number, b: number) => number;
+
+const add: AddFn = (a, b) => {
+  /* blackbox */
+};
+
+// TEST. framework jest
+expect(typeof add(2, 2) === "number").toBe(true);
+expect(add(2, 4) === add(4, 2)).toBe(true);
+```
+
+Jednak powszechnie są traktowane jako testy białej skrzynki.
+
+---
+
+## Testy integracyjne
+
+Testy integracyjne sprawdzają, czy różne moduły lub usługi wykorzystywane przez oprogramowanie dobrze ze sobą współpracują. Tego poziomu testy mogą być stosowane na przykład w celu sprawdzania interakcji aplikacji z bazą danych lub upewnienia się, że mikro-usługi działają zgodnie z postawionymi wymaganiami i oczekiwaniami, wymagają one uruchomienia wielu elementów aplikacji.
+
+```js
+// app
+const request = require("supertest");
+const app = require("express")();
+
+app.get("/user", (req, res) => res.status(200).json({ name: "john" }));
+
+// TEST. framework jest
+request(app)
+  .get("/user")
+  .expect("Content-Type", /json/)
+  .expect(200) // http code
+  .then((response) => assert(response.body.name, "john"));
+```
+
+---
+
+## Testy jednostkowe a integracyjne
+
+Przykład. Testowanie funkcji i implementacji losowej liczby z funkcji `getRandom(min:number, max:number)`
+
+```js
+describe("This is Unit Test", () => {
+  it("Should generate a random whole number between 0 and 100", () => {
+    const random = getRandom(0, 100);
+    assert.isNumber(random);
+    assert.isAtLeast(random, 0);
+    assert.isAtMost(random, 100);
+  });
+});
+```
+
+```js
+describe("This is Integration Test", () => {
+  it("Gets random number from endpoint", (done) => {
+    chai
+      .request(app)
+      .get("/random?min=0&max=100")
+      .end((err, res) => {
+        assert.isNumber(res.body.number);
+        assert.isAtLeast(res.body.number, 0);
+        assert.isAtMost(res.body.number, 100);
+      });
+  });
+});
+```
+
+---
+
+# Code Coverage.
+
+Pokrycie liniej kodu testami
+
+---
+
+## Pokrycie Kodu (code coverage)
+
+Pokrycie kodu określa które części (linie kodu) programu zostały przetestowane przez testy jednostkowe i integracyjne.
 
 ![cc](https://jestjs.io/img/content/feature-coverage.png)
 
 ---
 
-## Testy jednostkowe. Cd.
+## Pokrycie Kodu. Przykład Gitlab.
 
 Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration
 
@@ -69,7 +188,7 @@ Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration
 
 ---
 
-## Testy jednostkowe. Cd.
+## Pokrycie Kodu. Standard junit.
 
 Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration. Raport HTML `jUnit`
 
@@ -77,11 +196,19 @@ Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration. Raport HTML
 
 ---
 
-## Testy jednostkowe. Cd.
+## Testy jednostkowe. Regresja. Core Review.
 
 Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration. Zmiana w Merge Request
 
 ![cc](img/cc1.png)
+
+---
+
+## Testy jednostkowe. Github i Codecov.
+
+Pokrycie kodu bardzo dobrze współpracuje z Continuous Integration. Zmiana w Pull Request
+
+![cc](img/codecov.png)
 
 ---
 
@@ -138,36 +265,7 @@ $ eslint . --fix
 
 ---
 
-| **Testy niefunkcjonalne**                   |                                                                      |
-| ------------------------------------------- | -------------------------------------------------------------------- |
-| Wydajnościowe                               | sprawdzimy obciążenie systemu. Jak długo trwa odpowiedź serwera itp. |
-| Przeciążeniowe (część&nbsp;wydajnościowych) | przy ograniczeniu bądź braku zasób tj: procesor, pamięć, dysk, itp.  |
-| Obciążeniowe                                | przy zwiększonej ilości użytkowników, rekordów, itp.                 |
-| Użyteczności (ux)                           | łatwość korzystania z oprogramowania.                                |
-| Pielęgnowalności                            | łatwość modyfikacji i dostosowań do nowych wymagań.                  |
-| Niezawodności                               | wykonanie wymaganych funkcji w określonych warunkach.                |
-| Przenaszalności                             | łatwość przeniesienia z jednego środowiska na drugie.                |
-
----
-
-## Testy integracyjne
-
-Testy integracyjne sprawdzają, czy różne moduły lub usługi wykorzystywane przez oprogramowanie dobrze ze sobą współpracują. Tego poziomu testy mogą być stosowane na przykład w celu sprawdzania interakcji aplikacji z bazą danych lub upewnienia się, że mikro-usługi działają zgodnie z postawionymi wymaganiami i oczekiwaniami, wymagają one uruchomienia wielu elementów aplikacji.
-
-```js
-// app
-const request = require("supertest");
-const app = require("express")();
-
-app.get("/user", (req, res) => res.status(200).json({ name: "john" }));
-
-// TEST. framework jest
-request(app)
-  .get("/user")
-  .expect("Content-Type", /json/)
-  .expect(200) // http code
-  .then((response) => assert(response.body.name, "john"));
-```
+# Testy czarnej skrzynki
 
 ---
 
@@ -193,6 +291,14 @@ describe("My First Test", () => {
 
 ---
 
+# Behavior-Driven Development (BDD)
+
+Tworzenie oprogramowania przez opisywanie jego zachowania z perspektywy jego użytkowników.
+
+Różnica między BDD a TDD (Test Driven Development) to wykorzystanie zrozumiałego dla wszystkich języka, nawet osób bez wiedzy technicznej.
+
+---
+
 ## Testy akceptacyjne (BDD)
 
 Testy akceptacyjne są formalnymi testami oprogramowania przeprowadzanymi w celu sprawdzenia, czy dany system spełnia stawiane przed nim wymagania biznesowe. Wymagają one uruchomienia i poprawnego działania całości aplikacji i polegają na replikowaniu zachowań użytkowników. Tego poziomu testy mogą także obejmować nieco szerszy zakres, w który może wejść między innymi pomiar wydajności systemu oraz odrzucenie zmian w przypadku, gdy nie pozwalają one na osiągnięcie postawionych celów i wymagań.
@@ -209,6 +315,99 @@ Scenario("test something", ({ I }) => {
 
 ---
 
+## Testy behawioralne. Gherkin
+
+Gherkin to język służący do tworzenia przypadków testowych - definicja scenariusza jest zapisana za pomocą języka naturalnego.
+
+```yaml
+Feature: checkout
+  In order to buy product
+  As a customer
+  I need to be able to checkout the selected products
+
+Scenario: order several products
+  Given I have product with $600 price in my cart
+  And I have product with $1000 price in my cart
+  When I go to checkout process
+  Then I should see that total number of products is 2
+  And my order amount is $1600
+```
+
+```js
+Given(/I have product with \$(\d+) price/, (price) => {
+  // Write code here that turns the phrase above into concrete actions
+});
+```
+
+---
+
+## Testy behawioralne. Gherkin cd.
+
+Wdrozenie języka Gherkin. Przykład `codecept` i `Cucumber`. Wpierw Tester pisze scenariusze w języku naturalnym, następnie Framework przekształca je w testy JS które nie przechodzą i na końcu programista implementuje ich logikę.
+
+```js
+const { I, productPage } = inject();
+
+Given(/I have product with \$(\d+) price/, (price) => {
+  I.amOnPage("/products");
+  productPage.create({ price });
+  I.click("Add to cart");
+});
+
+When("I go to checkout process", () => {
+  I.click("Checkout");
+});
+
+Then("I should see that total number of products is {int}", (num) => {
+  I.see(num, ".cart");
+});
+Then("my order amount is ${int}", (sum) => {
+  // eslint-disable-line
+  I.see("Total: " + sum);
+});
+```
+
+---
+
+# Przykłady innych testów
+
+---
+
+## Testy mutacyjne.
+
+Technika polegająca na generowaniu małych i losowych zmian w kodzie naszej aplikacji. Jeżeli wstrzyknięte zmiany te nie zostaną wykryte przez nasze testy, są one niewystarczające. Przykład `stryker-mutator`
+
+```js
+// Given this code:
+function max(a, b) {
+  return a < b ? b : a;
+}
+
+// And these tests:
+describe('math', () => {
+  it('should return 4 for max(4, 3)', () => expect(max(4, 3)).eq(4))
+  it('should return 4 for max(3, 4)', () => expect(max(3, 4)).eq(4))
+});
+
+// Stryker will generate (amongst others) these mutants:
+function max(a, b) {
+-  return a < b ? b : a;
++  return true ? b : a; // 👽 1
++  return false ? b : a; // 👽 2
++  return a <= b ? b : a; // 👽 3
+}
+```
+
+---
+
+## Testy mutacyjne. CD
+
+![mutatation-tests](https://stryker-mutator.io/assets/images/disable-mutants-equivalent-mutant-e48c67a6febafc28a5a12a74430cbda2.png)
+
+Każda wstrzyknięta zmiana nazywa się `mutantem`. Jeśli żaden z testów się nie wysypie - mutant przeżył (survived). Jeśli co najmniej jeden test się wywali, mutant został zabity (killed). Należy zabić wszystkie mutanty.
+
+---
+
 ## Testy wizualne (snapshot)
 
 ![https://files.readme.io/4455b26-responsive-changes-requested.gif](https://files.readme.io/4455b26-responsive-changes-requested.gif)
@@ -220,6 +419,10 @@ Scenario("test something", ({ I }) => {
 Porównywanie wyniku uruchomienia funkcji z jakimś oczekiwanym efektem, zapisanego wcześniej w repozytorium jak wzorzec prawidłowego rezultatu.
 
 ![https://jestjs.io/img/content/failedSnapshotTest.png](https://jestjs.io/img/content/failedSnapshotTest.png)
+
+---
+
+# Środowiska uruchomieniowe (aka runners)
 
 ---
 
@@ -341,7 +544,7 @@ it("validates general PDF investment for user", async (done) => {
 
 ---
 
-## Faktorie
+## Faktorie (aka Fake'i)
 
 Służą do łatwego generowania skomplikowanych obiektów.
 
@@ -372,7 +575,13 @@ describe("tests user phone number", () => {
 
 ---
 
-# Zasady
+# Zasady pisania testów
+
+> Bardzo subiektywne. Zapraszam do dyskusji.
+
+---
+
+## Zasady
 
 Testy jednostkowa są wyizolowanie i niezależne od siebie.
 
@@ -407,6 +616,12 @@ Kluczem do dobrego testu jednostkowego jest napisanie testowalnego kodu. Zastoso
 
 ---
 
+## Testy zamiast (albo uzupełnienie dokumentacji)
+
+Dobrze napisane testy mogą zastąpić (a na pewno uzupełnić) nawet najlepiej napisaną dokumentację.
+
+---
+
 ## TDD
 
 ### Gdzie możliwe używaj TDD
@@ -415,7 +630,7 @@ TDD to proces projektowania, a nie proces testowania. TDD to solidna metoda inte
 
 #### Pierwszy cykl testowy
 
-1. Napisz prosty test zakończony niepowodzeniem
+1. Zdefiniuj problem i napisz prosty test zakończony niepowodzeniem
 2. Niech test przejdzie, wpisując minimalną ilość kodu, nie przejmuj się jakością kodu
 3. Refaktoryzuj kod, stosując zasady / wzorce projektowe
 
@@ -760,6 +975,8 @@ it('should update the profile view properly', () => { // expect(...)to(...);});
 
 Nieprzewidziane zachowanie zwykle zdarza się na krawędziach (`edge case`) - Pamiętaj, że testy mają być żywą dokumentacją kodu.
 
+Code Coverage na poziomie 100% nie oznacza, ze pokryłeś wszystkie możliwe przypadki.
+
 ---
 
 brzydko
@@ -869,17 +1086,19 @@ Pomoże ci to bardzo szybko zrozumieć zamiary dewelopera (wystarczy spojrzeć n
 
 ---
 
-# Live coding
+# Dziękuje
 
-![cat](https://media3.giphy.com/media/ule4vhcY1xEKQ/source.gif)
+<iframe src="https://giphy.com/embed/d68IdpvmAHohx5NMEV" width="480" height="344" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
 
 ---
 
-## Dziekuwex
+## Pytania?
 
 Mateusz Wojczal 2020
 
 [https://mateusz.wojczal.com](https://mateusz.wojczal.com)
+
+- prezentacja wraz z przykładami jest dostępna na [https://github.com/qunabu/js-testing-types](https://github.com/qunabu/js-testing-types)
 
 Korzystałem z
 
@@ -888,3 +1107,4 @@ Korzystałem z
 - [create-react-app](https://github.com/facebook/create-react-app)
 - [Cypress Test Runner](https://www.cypress.io/)
 - [CodeceptJS - SuperCharged End 2 End Testing with WebDriver & Puppeteer](https://codecept.io/)
+- [Stryker Mutator. Test your tests with mutation testing](https://stryker-mutator.io/)
