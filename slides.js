@@ -57,12 +57,14 @@ deck.initialize({
 
   // Bounds for smallest/largest possible scale to apply to content
   minScale: 0,
-  maxScale: 0.8,
+  maxScale: 1,
 
-  disableLayout: false,
+  disableLayout: true,
 
   width: 1280,
   height: 720,
+
+  display: "flex",
 });
 
 //console.log(md);
