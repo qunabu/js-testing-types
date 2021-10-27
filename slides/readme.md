@@ -174,7 +174,7 @@ Pokrycie liniej kodu testami
 
 Pokrycie kodu określa które części (linie kodu) programu zostały przetestowane przez testy jednostkowe i integracyjne.
 
-![cc](https://jestjs.io/img/content/feature-coverage.png)
+![cc](https://i.stack.imgur.com/UBoZN.png)
 
 ---
 

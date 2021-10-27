@@ -20,6 +20,25 @@
     <link rel="stylesheet" href="node_modules/reveal.js/plugin/highlight/monokai.css">
     <link rel="stylesheet" href="node_modules/reveal.js/dist/theme/black.css">
     <style>
+        .reveal .slides {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            justify-content: center;
+            align-items: center;
+            align-content: center;
+        }
+        
+        .reveal img {
+            max-height: 60vh;
+            max-width: 60vw;
+        }
+        
+        .reveal .slides section {
+            padding: 5vh 15vw;
+            box-sizing: border-box;
+        }
+        
         .reveal pre code {
             max-height: none;
         }
