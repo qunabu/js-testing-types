@@ -132,6 +132,50 @@ request(app)
 
 ---
 
+## Testy integracyjne. React
+
+```jsx
+import React from "react";
+import { rest } from "msw";
+import { setupServer } from "msw/node";
+import { render, fireEvent, waitFor, screen } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import Fetch from "../fetch";
+
+const server = setupServer(
+  rest.get("/greeting", (req, res, ctx) => {
+    return res(ctx.json({ greeting: "hello there" }));
+  })
+);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
+
+test("loads and displays greeting", async () => {
+  render(<Fetch url="/greeting" />);
+  fireEvent.click(screen.getByText("Load Greeting"));
+  await waitFor(() => screen.getByRole("heading"));
+  expect(screen.getByRole("heading")).toHaveTextContent("hello there");
+  expect(screen.getByRole("button")).toBeDisabled();
+});
+
+test("handles server error", async () => {
+  server.use(
+    rest.get("/greeting", (req, res, ctx) => {
+      return res(ctx.status(500));
+    })
+  );
+  render(<Fetch url="/greeting" />);
+  fireEvent.click(screen.getByText("Load Greeting"));
+  await waitFor(() => screen.getByRole("alert"));
+  expect(screen.getByRole("alert")).toHaveTextContent("Oops, failed to fetch!");
+  expect(screen.getByRole("button")).not.toBeDisabled();
+});
+```
+
+---
+
 ## Testy jednostkowe a integracyjne
 
 Przykład. Testowanie funkcji i implementacji losowej liczby z funkcji `getRandom(min:number, max:number)`
@@ -288,6 +332,14 @@ describe("My First Test", () => {
   });
 });
 ```
+
+---
+
+# Testy end-to-end.
+
+Cypress.io Videos
+
+<video muted autoplay loop src="https://assets.cypress.io/screencasts/global/9b06219f-138f-4e3a-a996-4ad00d6ab3f3.mp4?AWSAccessKeyId=AKIAIGH7VO3KJJU4LBGQ&Expires=1635337991&Signature=cKAUP2aYnr%2B6Ro01ISlcqugY%2BFA%3D&response-content-disposition=attachment%3B%20filename%3D%22cypress-video6bdb9e1c-29de-4780-92c8-ef5e06fd456c.mp4%22%3B&response-content-type=video%2Fmp4" />
 
 ---
 
@@ -1089,6 +1141,12 @@ Pomoże ci to bardzo szybko zrozumieć zamiary dewelopera (wystarczy spojrzeć n
 # Dziękuje
 
 <iframe src="https://giphy.com/embed/d68IdpvmAHohx5NMEV" width="480" height="344" frameBorder="0" class="giphy-embed" allowFullScreen></iframe>
+
+---
+
+Prezentacja wraz z przykładami jest dostępna na [https://github.com/qunabu/js-testing-types](https://github.com/qunabu/js-testing-types)
+
+![gh](img/gh.png)
 
 ---
 
