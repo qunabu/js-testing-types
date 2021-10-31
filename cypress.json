@@ -1,3 +1,4 @@
 {
-    "projectId": "8dc3c2"
+    "projectId": "8dc3c2",
+    "testFiles": "**/*.js"
 }

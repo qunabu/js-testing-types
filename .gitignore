@@ -28,8 +28,12 @@ slides/*.lock
 junit.xml
 
 cypress/**/*.mp4
+cypress/screenshots
+
 
 output
 
 yarn.lock
 .vscode
+
+cypress/cucumber-json/*

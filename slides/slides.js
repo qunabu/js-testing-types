@@ -59,7 +59,7 @@ deck.initialize({
   minScale: 0,
   maxScale: 1,
 
-  disableLayout: true,
+  disableLayout: false,
 
   width: 1280,
   height: 720,

@@ -3,13 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "dependencies": {
-        "@testing-library/jest-dom": "^5.11.4",
-        "@testing-library/react": "^11.1.0",
-        "@testing-library/user-event": "^12.1.10",
         "react": "^17.0.1",
         "react-dom": "^17.0.1",
-        "react-scripts": "4.0.0",
-        "web-vitals": "^0.2.4"
+        "react-scripts": "4.0.0"
     },
     "scripts": {
         "start": "react-scripts start",
@@ -28,6 +24,8 @@
         "cypress-run": "cypress run",
         "cypress-test": "start-server-and-test start http://localhost:3000 cypress-run",
         "cypress-ci": "start-server-and-test start http://localhost:3000 cypress-run",
+        "cypress-gherkin": "cucumber=true cypress run --config 'testFiles=**/*.feature'",
+        "cypress-gherkin-ci": "start-server-and-test start http://localhost:3000 cypress-gherkin",
         "codeceptjs": "codeceptjs run",
         "codeceptjs-test": "start-server-and-test start http-get://localhost:3000 codeceptjs",
         "codeceptjs-ci": "yarn start-detach && (yarn codeceptjs -c codecept.conf.ci.js) && yarn stop-detach"
@@ -51,8 +49,12 @@
         ]
     },
     "devDependencies": {
+        "@testing-library/jest-dom": "^5.11.4",
+        "@testing-library/react": "^11.1.0",
+        "@testing-library/user-event": "^12.1.10",
         "codeceptjs": "^3.0.2",
         "cypress": "^5.6.0",
+        "cypress-cucumber-preprocessor": "^4.3.0",
         "eslint-config-prettier": "^6.15.0",
         "eslint-plugin-prettier": "^3.1.4",
         "husky": "^4.3.0",
@@ -74,5 +76,14 @@
             "text",
             "clover"
         ]
+    },
+    "cypress-cucumber-preprocessor": {
+        "nonGlobalStepDefinitions": false,
+        "cucumberJson": {
+            "generate": "true",
+            "outputFolder": "cypress/cucumber-json",
+            "filePrefix": "",
+            "fileSuffix": ".cucumber"
+        }
     }
 }
