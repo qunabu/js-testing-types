@@ -28,11 +28,15 @@ slides/*.lock
 junit.xml
 
 cypress/**/*.mp4
+cypress/screenshots
+
 
 output
 
 yarn.lock
 .vscode
+
+cypress/cucumber-json/*
 # stryker temp files
 .stryker-tmp
 
