@@ -37,3 +37,7 @@ yarn.lock
 .vscode
 
 cypress/cucumber-json/*
+# stryker temp files
+.stryker-tmp
+
+reports

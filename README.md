@@ -7,6 +7,7 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/375171535f08cc683bfd/maintainability)](https://codeclimate.com/github/qunabu/js-testing-types/maintainability)
 [![codecov](https://codecov.io/gh/qunabu/js-testing-types/branch/master/graph/badge.svg?token=UU229E6W80)](https://codecov.io/gh/qunabu/js-testing-types)
 [![Js Testing Types](https://img.shields.io/endpoint?url=https://dashboard.cypress.io/badge/detailed/8dc3c2&style=flat&logo=cypress)](https://dashboard.cypress.io/projects/8dc3c2/runs)
+[![Mutation testing badge](https://img.shields.io/endpoint?style=flat&url=https%3A%2F%2Fbadge-api.stryker-mutator.io%2Fgithub.com%2Fqunabu%2Fjs-testing-types%2Fmain)](https://dashboard.stryker-mutator.io/reports/github.com/qunabu/js-testing-types/main)
 
 Poniższe repozytorium służy do pokazania różnych strategii testowania automatycznego w języku JavaScript.
 
@@ -20,8 +21,8 @@ Kod w tym repozytorium jest oparty o `React` i domyślne ustawienia `create-reac
 - Runner do testów e2e [cypress](https://www.cypress.io/). Definicje testów w katalogu [cypress](cypress)
 - [Pre hook git-push](https://github.com/typicode/husky) uruchamiający testy w momencie `git push`. Kod który nie przechodzi testów `Jest` nie będzie wysłany do repozytorium.
 - Skonfigurowany Continuous Integration oparty o [github actions worflow](https://github.com/qunabu/js-testing-types/actions).
-- TODO codeceptjs e2e
-- TODO codeceptjs cucumber e2e
+- Testy akceptacyjne [codecept.io](https://codecept.io/)
+- Testy mutacyjne [stryker-mutator.io](https://stryker-mutator.io/d)
 
 ## Teoria i przykłady w JavaScript.
 
